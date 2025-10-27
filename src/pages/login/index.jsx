@@ -24,7 +24,7 @@ const LoginPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.get(`http://localhost:3001/users?email=${email}&password=${password}`);
+            const response = await axios.get(`${import.meta.env.VITE_API_URL}/users?email=${email}&password=${password}`);
             if (response.data.length > 0) {
                 const user = response.data[0];
                 toast.success("Login realizado com sucesso!");

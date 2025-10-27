@@ -1,16 +1,79 @@
-# React + Vite
+# Smartwatch Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Projeto de e-commerce de smartwatches desenvolvido com React + Vite.
 
-Currently, two official plugins are available:
+## Variáveis de Ambiente
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O projeto usa variáveis de ambiente para configuração da API e outras configurações:
 
-## React Compiler
+### Variáveis Configuradas:
+- `VITE_API_URL` - URL da API (ex: `https://site-smartwatch-pi.vercel.app/api`)
+- `VITE_APP_NAME` - Nome da aplicação (ex: `Smartwatch Store`)
+- `USERS_DATA` - Dados dos usuários (JSON string)
+- `PRODUCTS_DATA` - Dados dos produtos (JSON string)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Como usar no código:
+```javascript
+// Acessar variáveis de ambiente
+const apiUrl = import.meta.env.VITE_API_URL
+const appName = import.meta.env.VITE_APP_NAME
 
-## Expanding the ESLint configuration
+// Exemplo de uso em componentes
+<div className="logo">
+  {import.meta.env.VITE_APP_NAME || 'LOSSANTOS'}
+</div>
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+// Exemplo de chamada para API
+const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
+```
+
+## Deploy no Vercel
+
+### 1. Configure as variáveis de ambiente no Vercel Dashboard:
+
+```
+NODE_ENV=production
+VITE_API_URL=https://site-smartwatch-pi.vercel.app/api
+USERS_DATA=[{"id":"1","firstName":"Admin","lastName":"Lossantos","companyName":"Lossantos Corp","email":"admin@lossantos.com","password":"adminpassword123"},...]
+PRODUCTS_DATA=[{"id":"1","title":"Watch 10 ultra - 49mm","price":559,"category":"Smartwatch",...},...]
+```
+
+### 2. API Endpoints disponíveis:
+- `GET /api/users` - Lista todos os usuários
+- `POST /api/users` - Cria um novo usuário
+- `GET /api/products` - Lista todos os produtos
+- `POST /api/products` - Cria um novo produto
+
+### 3. Scripts disponíveis:
+```bash
+npm run dev          # Servidor de desenvolvimento
+npm run build        # Build para produção
+npm run preview      # Preview do build
+npm run extract-env  # Extrai dados do db.json para variáveis de ambiente
+```
+
+## Desenvolvimento
+
+### Instalação:
+```bash
+npm install
+```
+
+### Desenvolvimento local:
+```bash
+npm run dev
+# Acesse: http://localhost:5173
+```
+
+### Para extrair dados do db.json:
+```bash
+npm run extract-env
+```
+
+## Tecnologias
+- React 19
+- Vite
+- React Router DOM
+- Axios
+- React Hot Toast
+- Tailwind CSS (se configurado)

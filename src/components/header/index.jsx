@@ -43,7 +43,7 @@ const Header = () => {
             <div className="header-content">
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <div className="logo">
-                        LOSSANTOS
+                        {import.meta.env.VITE_APP_NAME || 'LOSSANTOS'}
                     </div>
                 </Link>
 

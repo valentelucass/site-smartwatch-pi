@@ -18,6 +18,11 @@ import LoginPage from './pages/login/index.jsx'
 import AddProduto from './pages/add-produto/index.jsx'
 import RastreioPage from './pages/rastreio/index.jsx'
 
+// Exemplo de uso das variáveis de ambiente
+console.log('API URL:', import.meta.env.VITE_API_URL)
+console.log('App Name:', import.meta.env.VITE_APP_NAME)
+console.log('Environment:', import.meta.env.MODE)
+
 
 
 createRoot(document.getElementById('root')).render(
