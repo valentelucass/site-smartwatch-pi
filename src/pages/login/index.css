@@ -1,0 +1,223 @@
+/*
+  OPCIONAL, MAS RECOMENDADO:
+  Garanta que esta linha esteja no seu CSS principal (ex: index.css)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ----- 🎨 SISTEMA DE DESIGN (VARIÁVEIS GLOBAIS) ----- */
+:root {
+    /* Cores */
+    --cor-primaria: #0052ff;
+    --cor-primaria-hover: #0045d6;
+    --cor-secundaria: #fca311;
+    --cor-secundaria-hover: #e8950d;
+    --cor-neutra: #6c757d;
+    --cor-neutra-hover: #5a6268;
+    --cor-fundo: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
+    --cor-superficie: #ffffff;
+    --cor-texto-principal: #1d2d35;
+    --cor-texto-secundario: #555;
+    --cor-borda: #e0e0e0;
+    --cor-fundo-input: #f7f7f7;
+
+    /* Tipografia */
+    --fonte-principal: 'Poppins', sans-serif;
+    --tamanho-fonte-base: 1rem;
+    --tamanho-titulo: 2.1rem;
+
+    /* Layout e Espaçamento */
+    --raio-borda-pequeno: 8px;
+    --raio-borda-grande: 16px;
+    --sombra-padrao: 0 10px 25px rgba(0, 0, 0, 0.05), 0 4px 10px rgba(0, 0, 0, 0.08);
+    --transicao-rapida: all 0.2s ease-in-out;
+}
+
+/* ----- 🏗️ ESTRUTURA DA PÁGINA ----- */
+.login-page {
+    background: var(--cor-fundo);
+    color: var(--cor-texto-principal);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--fonte-principal);
+}
+
+.login-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+}
+
+/* ----- 📦 CAIXA DE LOGIN ----- */
+.login-box {
+    width: 100%;
+    max-width: 460px;
+    text-align: center;
+    background-color: var(--cor-superficie);
+    padding: 3rem 2.5rem;
+    border-radius: var(--raio-borda-grande);
+    box-shadow: var(--sombra-padrao);
+}
+
+.login-box h1 {
+    font-size: var(--tamanho-titulo);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--cor-texto-principal);
+}
+
+/* ----- 📝 FORMULÁRIO ----- */
+.login-form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--cor-texto-secundario);
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--cor-borda);
+    background-color: var(--cor-fundo-input);
+    border-radius: var(--raio-borda-pequeno);
+    font-size: var(--tamanho-fonte-base);
+    font-family: inherit;
+    transition: var(--transicao-rapida);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--cor-primaria);
+    background-color: var(--cor-superficie);
+    box-shadow: 0 0 0 3px rgba(0, 82, 255, 0.2);
+}
+
+/* ----- 🔘 BOTÕES (ESTRUTURA MODULAR) ----- */
+/* Classe base para todos os botões */
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--raio-borda-pequeno);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Variações de cor para os botões */
+.btn-primario {
+    background-color: var(--cor-primaria);
+    color: var(--cor-superficie);
+}
+
+.btn-primario:hover {
+    background-color: var(--cor-primaria-hover);
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+}
+
+.btn-secundario {
+    /* Botão do Admin */
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto-principal);
+}
+
+.btn-secundario:hover {
+    background-color: var(--cor-secundaria-hover);
+    box-shadow: 0 4px 12px rgba(252, 163, 17, 0.4);
+}
+
+.btn-neutro {
+    /* Botão de Logout */
+    background-color: var(--cor-neutra);
+    color: var(--cor-superficie);
+}
+
+.btn-neutro:hover {
+    background-color: var(--cor-neutra-hover);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
+}
+
+/* Compatibilidade com o código JSX existente */
+.submit-btn {
+    composes: btn btn-primario;
+}
+
+.admin-panel-btn {
+    composes: btn btn-secundario;
+}
+
+.logout-btn {
+    composes: btn btn-neutro;
+}
+
+/* ----- 📄 TEXTOS E LINKS ----- */
+.welcome-message {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.form-links {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+.form-links a {
+    color: var(--cor-primaria);
+    text-decoration: none;
+    margin: 0 0.5rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.form-links a:hover {
+    text-decoration: underline;
+    color: var(--cor-primaria-hover);
+}
+
+.form-links span {
+    color: #cccccc;
+}
+
+/* ----- 📱 RESPONSIVIDADE ----- */
+@media (max-width: 480px) {
+    .login-box {
+        padding: 2.5rem 1.5rem;
+    }
+
+    .login-box h1 {
+        font-size: 1.8rem;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 0.9rem;
+    }
+}

@@ -1,0 +1,235 @@
+.add-product-page {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.add-product-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.add-product-container h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+}
+
+.add-product-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.form-group.description-group {
+    grid-column: 1 / 2;
+}
+
+.form-group.form-images {
+    grid-row: 2 / span 3;
+    grid-column: 2 / 3;
+}
+
+.image-uploader {
+    border: 2px dashed #cccccc;
+    border-radius: 8px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: #555555;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.image-uploader:hover {
+    border-color: #007bff;
+}
+
+.image-uploader svg {
+    color: #007bff;
+}
+
+.image-preview-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.image-preview {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+}
+
+.remove-image {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    font-size: 12px;
+}
+
+.remove-image:hover {
+    background-color: #cc0000;
+}
+
+.color-input-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.color-picker {
+    width: 50px;
+    height: 40px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.add-color-btn {
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-color-btn:hover {
+    background-color: #218838;
+}
+
+.color-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.color-swatch-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.color-swatch {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    cursor: pointer;
+}
+
+.remove-color {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4444;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 0;
+    font-size: 10px;
+}
+
+.remove-color:hover {
+    background-color: #cc0000;
+}
+
+/* Estilos para campos automáticos */
+.form-group input[readonly] {
+    background-color: #f8f9fa;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.form-actions {
+    grid-column: 1 / 2;
+    margin-top: 1rem;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 1rem;
+    background-color: #0052ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0045d6;
+}
+
+@media (max-width: 768px) {
+    .add-product-form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group,
+    .form-group.description-group,
+    .form-group.form-images,
+    .form-colors,
+    .form-actions {
+        grid-column: 1 / 2;
+        grid-row: auto;
+    }
+}

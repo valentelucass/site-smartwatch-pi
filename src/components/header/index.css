@@ -1,0 +1,190 @@
+/*
+==============================================================
+  Componente: Header (Tema Escuro)
+  ------------------------------------------------------------
+  Estilo para o header escuro com formulário de busca.
+==============================================================
+*/
+
+/* ---  Estrutura Principal --- */
+.header-container {
+    /* Usando position: relative para que o .search-form se posicione corretamente */
+    position: relative;
+    width: 100%;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    /* Mantém o header fixo no topo */
+    top: 0;
+}
+
+.header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.25rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* --- Navegação Principal (Desktop) --- */
+.navigation {
+    display: flex;
+    gap: 2.5rem;
+    /* Aumenta o espaçamento entre os links */
+}
+
+.navigation a {
+    color: #e0e0e0;
+    /* Um branco um pouco mais suave */
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.navigation a:hover {
+    color: #ffffff;
+}
+
+.navigation a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #646cff;
+    transition: width 0.3s ease;
+}
+
+.navigation a:hover::after {
+    width: 100%;
+}
+
+/* --- Ícones --- */
+.header-icons {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+/* Estilo para os ícones dentro de links (carrinho, usuário) */
+.header-icons a {
+    color: #ffffff;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.header-icons a:hover {
+    color: #646cff;
+    transform: scale(1.1);
+}
+
+/* --- Botão e Formulário de Busca --- */
+.search-button {
+    /* Reset do estilo padrão de botão para que pareça um ícone */
+    background-color: transparent;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.search-button:hover {
+    color: #646cff;
+    transform: scale(1.1);
+}
+
+.search-form {
+    position: absolute;
+    top: 100%;
+    /* Posiciona logo abaixo do header */
+    right: 2rem;
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    background-color: #242424;
+    /* Fundo para destacar do conteúdo da página */
+    padding: 0.75rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.search-form input {
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background-color: #333;
+    color: #ffffff;
+    outline: none;
+    font-size: 1rem;
+    transition: border-color 0.2s ease;
+}
+
+.search-form input:focus {
+    border-color: #646cff;
+}
+
+.search-form button {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    border: none;
+    background-color: #646cff;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.search-form button:hover {
+    background-color: #535bf2;
+}
+
+
+/* --- Responsividade --- */
+@media (max-width: 992px) {
+    .navigation {
+        display: none;
+        /* Esconde a navegação principal, ideal para um futuro menu hambúrguer */
+    }
+
+    .header-content {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .header-icons {
+        gap: 1.2rem;
+    }
+
+    /* Ajusta o formulário de busca para telas menores */
+    .search-form {
+        right: 1rem;
+        left: 1rem;
+        width: auto;
+        /* Remove a largura fixa para ocupar o espaço disponível */
+    }
+
+    .search-form input {
+        flex-grow: 1;
+        /* Faz o input crescer para preencher o espaço */
+    }
+}

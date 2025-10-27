@@ -1,0 +1,92 @@
+.cadastro-page {
+    background-color: #ffffff;
+    color: #000000;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.cadastro-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem 2rem;
+}
+
+.cadastro-box {
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.cadastro-box h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+}
+
+.cadastro-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1.5rem;
+    justify-content: center;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    text-align: left;
+    flex: 1 1 calc(50% - 0.75rem);
+}
+
+.form-group.full-width {
+    flex-basis: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-group input {
+    width: 100%;
+    height: 50px;
+    padding: 0.8rem 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.submit-btn {
+    width: 100%;
+    max-width: 200px;
+    padding: 1rem;
+    background-color: #0052ff;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #0045d6;
+}
+
+@media (max-width: 640px) {
+    .form-row {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .form-group {
+        flex-basis: 100%;
+    }
+}

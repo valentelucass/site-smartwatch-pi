@@ -1,0 +1,168 @@
+.smartwatch-page {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.smartwatch-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.smartwatch-container h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #000000;
+}
+
+.loading-container {
+    text-align: center;
+    padding: 4rem 2rem;
+}
+
+.loading-container p {
+    font-size: 1.2rem;
+    color: #666666;
+    margin: 0;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.error-container {
+    text-align: center;
+    padding: 2rem;
+    background-color: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.error-container p {
+    color: #856404;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.no-products {
+    text-align: center;
+    padding: 4rem 2rem;
+    grid-column: 1 / -1;
+}
+
+.no-products p {
+    font-size: 1.1rem;
+    color: #666666;
+    margin: 0.5rem 0;
+}
+
+.no-products p:first-child {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem 2rem;
+}
+
+.product-card {
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+}
+
+.product-image-container {
+    background-color: #f7f7f7;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 4rem;
+}
+
+.page-btn {
+    border: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+    color: #333;
+    font-family: inherit;
+    font-weight: 500;
+    font-size: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.page-btn:hover {
+    background-color: #e0e0e0;
+    border-color: #cccccc;
+}
+
+.page-btn.active {
+    background-color: #000000;
+    color: #ffffff;
+    border-color: #000000;
+}
+
+.page-btn.next {
+    width: auto;
+    padding: 0 1rem;
+}
+
+@media (max-width: 992px) {
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .smartwatch-container {
+        padding: 3rem 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem 1rem;
+    }
+}

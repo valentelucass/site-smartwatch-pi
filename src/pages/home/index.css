@@ -1,0 +1,157 @@
+.main-content {
+    flex: 1;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+/* --- Seções Hero --- */
+.hero-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4rem 2rem;
+    border-radius: 12px;
+    margin-top: 2rem;
+    margin-bottom: 4rem;
+}
+
+.hero-main {
+    background-color: #111111;
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.cta-button {
+    background-color: #F0E9E1;
+    color: #000000;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #dcd3ca;
+}
+
+.hero-image1 img {
+    max-width: 50%;
+    height: auto;
+}
+
+/* --- Seção de Produtos --- */
+.products-section {
+    text-align: center;
+    padding: 5rem 0;
+}
+
+.products-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.products-section>p {
+    color: #a0a0a0;
+    max-width: 500px;
+    margin: 0 auto 3rem auto;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.product-card {
+    background-color: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card img {
+    max-width: 150px;
+    margin-bottom: 1rem;
+    background-color: #000;
+    border-radius: 8px;
+}
+
+.product-card h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+
+/* --- Seção Hero Secundária --- */
+.hero-secondary {
+    background-color: #000;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.hero-secondary .hero-content {
+    text-align: left;
+}
+
+.hero-secondary .subtitle {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #a0a0a0;
+}
+
+.hero-secondary h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 0.5rem 0 1.5rem 0;
+}
+
+/* --- Responsividade do conteúdo da página --- */
+@media (max-width: 992px) {
+    .main-content {
+        padding: 0 1rem;
+    }
+
+    .hero-section {
+        flex-direction: column;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .hero-secondary {
+        flex-direction: column-reverse;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}

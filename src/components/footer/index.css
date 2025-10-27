@@ -1,0 +1,91 @@
+.footer-container {
+    width: 100%;
+    margin-top: auto;
+    padding: 3rem 0 2rem 0;
+    border-top: 1px solid #333;
+    font-size: 0.85rem;
+    color: #c0c0c0;
+    background-color: #111;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.footer-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+    gap: 2rem;
+}
+
+.footer-info p {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}
+
+.footer-info .address {
+    margin-top: 1rem;
+    font-style: italic;
+    color: #aaaaaa;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Ícones de pagamento */
+.payment-methods span {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 28px;
+    background-color: #222;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    transition: transform 0.2s, background-color 0.3s;
+    cursor: pointer;
+}
+
+.payment-methods span:hover {
+    background-color: #444;
+    transform: translateY(-2px);
+}
+
+.footer-bottom {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 1.8rem 2rem 0 2rem;
+    text-align: center;
+    border-top: 1px solid #333;
+    font-size: 0.75rem;
+    color: #888;
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+    }
+
+    .payment-methods {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-content {
+        padding: 0 1rem;
+    }
+    
+    .footer-bottom {
+        padding: 1.8rem 1rem 0 1rem;
+    }
+}
