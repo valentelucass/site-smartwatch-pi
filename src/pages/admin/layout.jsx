@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink, Outlet } from 'react-router-dom'
 import { isAdminEmail } from '../../utils/config'
 import './index.css'
 
 const AdminLayout = () => {
+  const [menuOpen, setMenuOpen] = useState(false)
   // Admin check via localStorage + config
   let isAdmin = false
   try {
@@ -29,8 +30,18 @@ const AdminLayout = () => {
   return (
     <div className="admin-page">
       <aside className="admin-sidebar">
-        <h2>Admin</h2>
-        <nav className="admin-nav">
+        <div className="admin-topbar">
+          <h2>Admin</h2>
+          <button
+            className="admin-menu-toggle"
+            aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+            aria-expanded={menuOpen ? 'true' : 'false'}
+            onClick={() => setMenuOpen((v) => !v)}
+          >
+            <span className="admin-menu-icon" aria-hidden="true"></span>
+          </button>
+        </div>
+        <nav className={`admin-nav ${menuOpen ? 'is-open' : ''}`} onClick={() => setMenuOpen(false)}>
           <NavLink to="/admin/products">Produtos</NavLink>
           <NavLink to="/admin/accessories">Acessórios</NavLink>
           <NavLink to="/admin/users">Usuários</NavLink>

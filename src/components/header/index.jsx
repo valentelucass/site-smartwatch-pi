@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { isAdminEmail } from '../../utils/config';
 import './index.css';
@@ -26,9 +26,27 @@ const UserIcon = () => (
     </svg>
 );
 
+const HamburgerIcon = ({ open }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        {open ? (
+            <>
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </>
+        ) : (
+            <>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+            </>
+        )}
+    </svg>
+);
+
 const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     // Admin visibility (hide link for non-admin)
     let showAdmin = false;
@@ -49,13 +67,24 @@ const Header = () => {
         setSearchOpen(false);
     };
 
+    // Fecha o menu mobile ao navegar (escuta mudanças de hash/URL simplistas)
+    useEffect(() => {
+        const closeOnResize = () => {
+            if (window.innerWidth > 992 && mobileOpen) setMobileOpen(false);
+        };
+        window.addEventListener('resize', closeOnResize);
+        return () => window.removeEventListener('resize', closeOnResize);
+    }, [mobileOpen]);
+
     return (
         <header className="header-container">
             <div className="header-content">
                 <Link to="/" style={{ textDecoration: 'none' }}>
-                    <div className="logo">
-                        {(import.meta.env.VITE_APP_NAME || 'LOSSANTOS').toUpperCase()}
-                    </div>
+                    <img
+                        className="logo"
+                        src="/logo.png"
+                        alt="LOSSANTOS"
+                    />
                 </Link>
 
 
@@ -68,6 +97,15 @@ const Header = () => {
                 </nav>
 
                 <div className="header-icons">
+                    <button
+                        className="hamburger-button"
+                        aria-label="Abrir menu"
+                        aria-expanded={mobileOpen}
+                        aria-controls="mobileMenu"
+                        onClick={() => setMobileOpen((v) => !v)}
+                    >
+                        <HamburgerIcon open={mobileOpen} />
+                    </button>
                     <button onClick={toggleSearch} className="search-button">
                         <SearchIcon />
                     </button>
@@ -94,6 +132,31 @@ const Header = () => {
                     <button type="submit">Buscar</button>
                 </form>
             )}
+
+            {/* Menu Mobile */}
+            <div
+                id="mobileMenu"
+                className={`mobile-menu ${mobileOpen ? 'open' : ''}`}
+                role="dialog"
+                aria-modal="true"
+            >
+                <div className="mobile-menu-header">
+                    <img className="logo" src="/logo.png" alt="LOSSANTOS" />
+                    <button className="close-mobile" aria-label="Fechar menu" onClick={() => setMobileOpen(false)}>
+                        <HamburgerIcon open={true} />
+                    </button>
+                </div>
+                <nav className="mobile-navigation" onClick={() => setMobileOpen(false)}>
+                    <Link to="/">Home</Link>
+                    <Link to="/smartwatch">Smartwatch</Link>
+                    <Link to="/acessorios">Acessórios</Link>
+                    <Link to="/sobrenos">Sobre nós</Link>
+                    {showAdmin && <Link to="/admin/products">Admin</Link>}
+                    <Link to="/carrinho">Carrinho</Link>
+                    <Link to="/login">Minha conta</Link>
+                </nav>
+            </div>
+            {mobileOpen && <div className="mobile-backdrop" onClick={() => setMobileOpen(false)} />}
         </header>
     );
 };

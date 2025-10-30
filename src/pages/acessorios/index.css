@@ -25,16 +25,24 @@
 }
 
 .product-image-container {
-    background-color: #f7f7f7;
+    background-color: #ffffff;
     border-radius: 12px;
     margin-bottom: 1rem;
     overflow: hidden;
+    border: 1px solid #e0e0e0;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .product-card img {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
     height: auto;
     display: block;
+    object-fit: contain;
 }
 
 .product-card h3 {
@@ -46,6 +54,24 @@
 .product-card .price {
     font-size: 1.1rem;
     font-weight: 600;
+}
+
+.add-to-cart-btn {
+    margin-top: 0.75rem;
+    background: #000;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    background-color: #111;
 }
 
 .pagination {
@@ -63,14 +89,19 @@
     font-family: inherit;
     font-weight: 500;
     font-size: 1rem;
-    width: 40px;
+    min-width: 40px;
     height: 40px;
+    padding: 0 0.75rem;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.page-btn:hover {
+.page-btn:hover:not(.disabled) {
     background-color: #e0e0e0;
     border-color: #cccccc;
 }
@@ -81,9 +112,32 @@
     border-color: #000000;
 }
 
+.page-btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f5f5f5;
+    color: #999;
+}
+
 .page-btn.next {
     width: auto;
     padding: 0 1rem;
+}
+
+.pagination-ellipsis {
+    color: #666;
+    font-weight: 500;
+    padding: 0 0.5rem;
+}
+
+/* Info de paginação: alinhamento central e espaçamento superior */
+.pagination-info {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.pagination-info p {
+    text-align: center;
 }
 
 @media (max-width: 992px) {
@@ -106,5 +160,30 @@
     .products-grid {
         grid-template-columns: 1fr;
         gap: 3rem 1rem;
+    }
+
+    .product-image-container {
+        height: 180px;
+    }
+
+    .pagination {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .page-btn {
+        font-size: 0.9rem;
+        min-width: 36px;
+        height: 36px;
+        padding: 0 0.6rem;
+    }
+
+    .pagination-info {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .pagination-info p {
+        font-size: 0.9rem;
     }
 }

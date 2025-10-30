@@ -32,17 +32,27 @@ const AdminUsersPage = () => {
         <p className="empty-state">Nenhum usuário cadastrado.</p>
       )}
       {!loading && users.length > 0 && (
-        <ul>
-          {users.map(u => (
-            <li key={u.id} style={{ padding: '0.5rem 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span>
-                <strong>{u.name || `${u.firstName} ${u.lastName}`}</strong> — {u.email} ({u.role || 'user'})
-              </span>
-              <div>
-                <Link to={`/admin/users/${u.id}/edit`} className="admin-btn">Editar</Link>
-              </div>
-            </li>
-          ))}
+        <ul className="admin-list">
+          {users.map(u => {
+            const name = u.name || `${u.firstName || ''} ${u.lastName || ''}`.trim() || u.email
+            const role = (u.role || 'user').toLowerCase()
+            const roleClass = role === 'admin' ? 'is-success' : 'is-info'
+            return (
+              <li key={u.id} className="admin-list-item">
+                <div className="admin-item-main">
+                  <div className="admin-thumb" style={{display:'grid',placeItems:'center',fontWeight:700,color:'#cbd5e1',background:'#0f1115'}}>{name?.[0]?.toUpperCase() || 'U'}</div>
+                  <div>
+                    <div className="admin-title">{name}</div>
+                    <div className="admin-meta">{u.email}</div>
+                  </div>
+                </div>
+                <div className="admin-item-actions">
+                  <span className={`admin-badge ${roleClass}`}>{role}</span>
+                  <Link to={`/admin/users/${u.id}/edit`} className="admin-btn">Editar</Link>
+                </div>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

@@ -5,6 +5,7 @@ import toast from 'react-hot-toast'; // Adicionei a importação do toast
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
 import { isAdminEmail } from '../../utils/config';
+import { getRandomPlaceholderImage } from '../../utils/placeholders.js';
 import './index.css';
 
 // Componentes de Ícone (mantidos como estão)
@@ -93,6 +94,7 @@ const AddProduto = () => {
     // Função de submit (mantida como está)
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const defaultImage = isAdminRoute ? getRandomPlaceholderImage() : '/fallback.svg';
         const newProduct = {
             title,
             price: parseFloat(price),
@@ -102,7 +104,7 @@ const AddProduto = () => {
             slug,
             stockStatus,
             quantity: parseInt(quantity, 10),
-            images: images.length > 0 ? images : [`https://via.placeholder.com/250/FFFFFF/000000?text=${encodeURIComponent(title || 'Produto')}`],
+            images: images.length > 0 ? images : [defaultImage],
             colors,
         };
 

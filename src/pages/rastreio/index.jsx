@@ -78,27 +78,55 @@ const Rastreio = () => {
                     </div>
                     <div className="product-item">
                         <div className="product-info">
-                            <img src="https://via.placeholder.com/80x80/f0f0f0/000000?text=W" alt="Watch Ultra" />
+                            <img src="/fallback.svg" alt="Watch Ultra" />
                             <div>
                                 <span className="product-cat">SMARTWATCH</span>
                                 <p>Watch Ultra 10 - Relógio Inteligente de última geração com Rastreamento Avançado de Saúde e Atividades</p>
                             </div>
                         </div>
-                        <span>R$299,00</span>
-                        <span>x1</span>
-                        <span>R$299,00</span>
+                        <span className="desktop-only">R$299,00</span>
+                        <span className="desktop-only">x1</span>
+                        <span className="desktop-only">R$299,00</span>
+                        <div className="product-details">
+                            <div className="detail-item">
+                                <div className="detail-label">Preço</div>
+                                <div className="detail-value">R$299,00</div>
+                            </div>
+                            <div className="detail-item">
+                                <div className="detail-label">Qtd</div>
+                                <div className="detail-value">x1</div>
+                            </div>
+                            <div className="detail-item">
+                                <div className="detail-label">Total</div>
+                                <div className="detail-value">R$299,00</div>
+                            </div>
+                        </div>
                     </div>
                     <div className="product-item">
                         <div className="product-info">
-                            <img src="https://via.placeholder.com/80x80/f0f0f0/000000?text=W" alt="Watch 10" />
+                            <img src="/fallback.svg" alt="Watch 10" />
                             <div>
                                 <span className="product-cat">SMARTWATCH</span>
                                 <p>Watch Série 10 - Smartwatch avançado com monitoramento de saúde, notificações e design moderno.</p>
                             </div>
                         </div>
-                        <span>R$399,00</span>
-                        <span>x1</span>
-                        <span>R$399,00</span>
+                        <span className="desktop-only">R$399,00</span>
+                        <span className="desktop-only">x1</span>
+                        <span className="desktop-only">R$399,00</span>
+                        <div className="product-details">
+                            <div className="detail-item">
+                                <div className="detail-label">Preço</div>
+                                <div className="detail-value">R$399,00</div>
+                            </div>
+                            <div className="detail-item">
+                                <div className="detail-label">Qtd</div>
+                                <div className="detail-value">x1</div>
+                            </div>
+                            <div className="detail-item">
+                                <div className="detail-label">Total</div>
+                                <div className="detail-value">R$399,00</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

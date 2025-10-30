@@ -24,6 +24,19 @@ const AdminAccessoriesPage = () => {
     fetchItems()
   }, [])
 
+  const formatBRL = (n) => {
+    const num = Number(n || 0)
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(num)
+  }
+
+  const getStatusClass = (status) => {
+    const s = String(status || '').toLowerCase()
+    if (s.includes('estoque') && s.includes('em')) return 'is-success'
+    if (s.includes('esgot') || s.includes('sem')) return 'is-danger'
+    if (s.includes('baixo')) return 'is-warning'
+    return 'is-info'
+  }
+
   const handleDelete = async (id) => {
     const confirm = window.confirm('Tem certeza que deseja excluir este acessório?')
     if (!confirm) return
@@ -53,30 +66,37 @@ const AdminAccessoriesPage = () => {
           <p className="empty-state">Nenhum acessório cadastrado.</p>
         )}
         {!loading && items.length > 0 && (
-          <ul>
-            {items.map(p => (
-              <li key={p.id} style={{ padding: '0.5rem 0', borderBottom: '1px solid #333', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>
-                  <strong>{p.name || p.title}</strong> — R$ {p.price}
-                </span>
-                <div>
-                <Link
-                  to={`/admin/accessories/${p.id}/edit`}
-                  className="admin-btn"
-                  style={{ marginRight: '0.5rem' }}
-                >
-                  Editar
-                </Link>
-                <button
-                  className="admin-btn admin-btn-danger"
-                  onClick={() => handleDelete(p.id)}
-                  disabled={deletingId === p.id}
-                >
-                  {deletingId === p.id ? 'Excluindo...' : 'Excluir'}
-                </button>
-                </div>
-              </li>
-            ))}
+          <ul className="admin-list">
+            {items.map(p => {
+              const title = p.title || p.name || `Acessório #${p.id}`
+              const img = (p.images && p.images[0]) || '/fallback.svg'
+              const category = p.category || 'Acessório'
+              const sku = p.sku || '—'
+              const stock = p.stockStatus || '—'
+              return (
+                <li key={p.id} className="admin-list-item">
+                  <div className="admin-item-main">
+                    <img className="admin-thumb" src={img} alt={title} />
+                    <div>
+                      <div className="admin-title">{title}</div>
+                      <div className="admin-meta">{category} • SKU {sku}</div>
+                    </div>
+                  </div>
+                  <div className="admin-item-actions">
+                    <span className="admin-price">{formatBRL(p.price)}</span>
+                    <span className={`admin-badge ${getStatusClass(stock)}`}>{stock}</span>
+                    <Link to={`/admin/accessories/${p.id}/edit`} className="admin-btn">Editar</Link>
+                    <button
+                      className="admin-btn admin-btn-danger"
+                      onClick={() => handleDelete(p.id)}
+                      disabled={deletingId === p.id}
+                    >
+                      {deletingId === p.id ? 'Excluindo...' : 'Excluir'}
+                    </button>
+                  </div>
+                </li>
+              )
+            })}
           </ul>
         )}
       </div>

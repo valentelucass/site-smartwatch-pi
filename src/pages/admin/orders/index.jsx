@@ -22,6 +22,14 @@ const AdminOrdersPage = () => {
     fetchOrders()
   }, [])
 
+  const getStatusBadge = (status) => {
+    const s = String(status || '').toLowerCase()
+    if (s.includes('pago') || s.includes('concl')) return 'is-success'
+    if (s.includes('pendente')) return 'is-warning'
+    if (s.includes('cancel') || s.includes('falha')) return 'is-danger'
+    return 'is-info'
+  }
+
   return (
     <div className="admin-card">
       <h1>Pedidos</h1>
@@ -31,12 +39,26 @@ const AdminOrdersPage = () => {
         <p className="empty-state">Nenhum pedido cadastrado.</p>
       )}
       {!loading && orders.length > 0 && (
-        <ul>
-          {orders.map(o => (
-            <li key={o.id} style={{ padding: '0.5rem 0', borderBottom: '1px solid #333' }}>
-              <strong>#{o.id}</strong> — status: {o.status} — itens: {Array.isArray(o.items) ? o.items.length : 0}
-            </li>
-          ))}
+        <ul className="admin-list">
+          {orders.map(o => {
+            const name = o.customerName || o.customer?.name || 'Cliente'
+            const itemsCount = Array.isArray(o.items) ? o.items.length : (o.itemsCount || 0)
+            const status = o.status || '—'
+            return (
+              <li key={o.id} className="admin-list-item">
+                <div className="admin-item-main">
+                  <div className="admin-thumb" style={{display:'grid',placeItems:'center',fontWeight:700,color:'#cbd5e1',background:'#0f1115'}}>#{String(o.id).slice(-2)}</div>
+                  <div>
+                    <div className="admin-title">Pedido #{o.id}</div>
+                    <div className="admin-meta">{name} • {itemsCount} itens</div>
+                  </div>
+                </div>
+                <div className="admin-item-actions">
+                  <span className={`admin-badge ${getStatusBadge(status)}`}>{status}</span>
+                </div>
+              </li>
+            )
+          })}
         </ul>
       )}
     </div>

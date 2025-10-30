@@ -164,16 +164,62 @@
 }
 
 /* Compatibilidade com o código JSX existente */
-.submit-btn {
-    composes: btn btn-primario;
+/*
+  As regras abaixo usam seletor contextual (.login-box ...) para ter maior
+  especificidade e, assim, sobrescrever estilos globais (ex.: .submit-btn
+  definido em outras páginas como Add Produto). Evitamos "composes" porque
+  não é CSS padrão fora de CSS Modules.
+*/
+.login-box .submit-btn,
+.login-box .admin-panel-btn,
+.login-box .logout-btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: var(--raio-borda-pequeno);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.admin-panel-btn {
-    composes: btn btn-secundario;
+.login-box .submit-btn:hover,
+.login-box .admin-panel-btn:hover,
+.login-box .logout-btn:hover {
+    transform: translateY(-3px);
 }
 
-.logout-btn {
-    composes: btn btn-neutro;
+/* Variação padrão (botão "Fazer login") */
+.login-box .submit-btn:not(.admin-panel-btn):not(.logout-btn) {
+    background-color: var(--cor-primaria);
+    color: var(--cor-superficie);
+}
+.login-box .submit-btn:not(.admin-panel-btn):not(.logout-btn):hover {
+    background-color: var(--cor-primaria-hover);
+    box-shadow: 0 4px 12px rgba(0, 82, 255, 0.3);
+}
+
+/* Botão do Admin */
+.login-box .admin-panel-btn {
+    background-color: var(--cor-secundaria);
+    color: var(--cor-texto-principal);
+}
+.login-box .admin-panel-btn:hover {
+    background-color: var(--cor-secundaria-hover);
+    box-shadow: 0 4px 12px rgba(252, 163, 17, 0.4);
+}
+
+/* Botão de Logout */
+.login-box .logout-btn {
+    background-color: var(--cor-neutra);
+    color: var(--cor-superficie);
+}
+.login-box .logout-btn:hover {
+    background-color: var(--cor-neutra-hover);
+    box-shadow: 0 4px 12px rgba(108, 117, 125, 0.3);
 }
 
 /* ----- 📄 TEXTOS E LINKS ----- */

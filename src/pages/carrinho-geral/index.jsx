@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
 import './index.css';
+import { getCart, setCheckoutItems } from '../../utils/cart.js';
+import { toast } from 'react-hot-toast';
 
 const TrashIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -12,6 +14,20 @@ const TrashIcon = () => (
 );
 
 const CartPage = () => {
+    const handleCheckoutClick = (e) => {
+        const items = getCart();
+        if (!items || items.length === 0) {
+            e.preventDefault();
+            toast.error('Seu carrinho está vazio. Adicione itens para continuar.');
+            return;
+        }
+        try {
+            setCheckoutItems(items);
+        } catch (err) {
+            e.preventDefault();
+            toast.error('Não foi possível preparar o checkout. Tente novamente.');
+        }
+    };
     return (
         <div className="cart-page">
             <Header />
@@ -26,7 +42,7 @@ const CartPage = () => {
                         </div>
                         <div className="cart-item">
                             <div className="product-details">
-                                <img src="https://via.placeholder.com/80x80/000000/FFFFFF?text=Watch" alt="Watch 10 Ultra" />
+                                <img src="/fallback.svg" alt="Watch 10 Ultra" />
                                 <span>Watch 10 Ultra</span>
                             </div>
                             <span className="item-price">R$499,00</span>
@@ -50,7 +66,7 @@ const CartPage = () => {
                             <span>Total</span>
                             <span>R$499,00</span>
                         </div>
-                        <Link to="/checkout" className="checkout-btn">Checkout</Link>
+                        <Link to="/checkout" className="checkout-btn" onClick={handleCheckoutClick}>Checkout</Link>
                     </div>
                 </div>
             </main>

@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
 import './index.css';
+import { getCart, updateQty, removeItem, setCheckoutItems } from '../../utils/cart.js';
+import { formatBRL } from '../../utils/cart.js';
+import { toast } from 'react-hot-toast';
 
 const TrashIcon = () => (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -12,6 +15,41 @@ const TrashIcon = () => (
 );
 
 const CartPage = () => {
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(getCart());
+    }, []);
+
+    const subtotal = useMemo(
+        () => items.reduce((acc, i) => acc + (i.price || 0) * (i.quantity || 1), 0),
+        [items]
+    );
+
+    const handleQtyChange = (id, type, value) => {
+        const updated = updateQty(id, type, value);
+        setItems([...updated]);
+    };
+
+    const handleRemove = (id, type) => {
+        const updated = removeItem(id, type);
+        setItems([...updated]);
+    };
+
+    const handleCheckoutClick = (e) => {
+        if (items.length === 0) {
+            e.preventDefault();
+            toast.error('Seu carrinho está vazio. Adicione itens para continuar.');
+            return;
+        }
+        try {
+            setCheckoutItems(items);
+        } catch (err) {
+            e.preventDefault();
+            toast.error('Não foi possível preparar o checkout. Tente novamente.');
+        }
+    };
+
     return (
         <div className="cart-page">
             <Header />
@@ -24,33 +62,50 @@ const CartPage = () => {
                             <span className="header-quantity">Quantidade</span>
                             <span className="header-subtotal">Subtotal</span>
                         </div>
-                        <div className="cart-item">
-                            <div className="product-details">
-                                <img src="https://via.placeholder.com/80x80/000000/FFFFFF?text=Watch" alt="Watch 10 Ultra" />
-                                <span>Watch 10 Ultra</span>
+                        {items.length === 0 ? (
+                            <div className="cart-item" style={{ gridTemplateColumns: '1fr' }}>
+                                <div className="product-details">
+                                    <span>Seu carrinho está vazio.</span>
+                                </div>
                             </div>
-                            <span className="item-price">R$559,00</span>
-                            <div className="quantity-selector">
-                                <input type="number" defaultValue="1" min="1" />
-                            </div>
-                            <span className="item-subtotal">R$559,00</span>
-                            <button className="remove-item-btn">
-                                <TrashIcon />
-                            </button>
-                        </div>
+                        ) : (
+                            items.map((item) => (
+                                <div key={`${item.type}-${item.id}`} className="cart-item">
+                                    <div className="product-details" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        <img src={item.image || '/fallback.svg'} alt={item.title} />
+                                        <span>{item.title}</span>
+                                    </div>
+                                    <span className="item-price" data-label="Preço">{formatBRL(item.price)}</span>
+                                    <div className="quantity-selector" data-label="Quantidade">
+                                        <input
+                                            type="number"
+                                            min="1"
+                                            value={item.quantity || 1}
+                                            onChange={(e) => handleQtyChange(item.id, item.type, e.target.value)}
+                                        />
+                                    </div>
+                                    <span className="item-subtotal" data-label="Subtotal">{formatBRL((item.price || 0) * (item.quantity || 1))}</span>
+                                    <button className="remove-item-btn" onClick={() => handleRemove(item.id, item.type)}>
+                                        <TrashIcon />
+                                    </button>
+                                </div>
+                            ))
+                        )}
                     </div>
 
                     <div className="cart-summary-section">
                         <h2>Carrinho total</h2>
                         <div className="summary-row">
                             <span>Subtotal</span>
-                            <span>R$559,00</span>
+                            <span>{formatBRL(subtotal)}</span>
                         </div>
                         <div className="summary-row total">
                             <span>Total</span>
-                            <span>R$559,00</span>
+                            <span>{formatBRL(subtotal)}</span>
                         </div>
-                        <Link to="/checkout" className="checkout-btn">Checkout</Link>
+                        <Link to="/checkout" className="checkout-btn" onClick={handleCheckoutClick}>
+                            Checkout
+                        </Link>
                     </div>
                 </div>
             </main>
