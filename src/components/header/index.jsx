@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { isAdminEmail } from '../../utils/config';
 import './index.css';
 
 // Ícones
@@ -29,6 +30,16 @@ const Header = () => {
     const [searchOpen, setSearchOpen] = useState(false);
     const [searchValue, setSearchValue] = useState('');
 
+    // Admin visibility (hide link for non-admin)
+    let showAdmin = false;
+    try {
+        const usuarioLogadoRaw = localStorage.getItem('usuarioLogado');
+        const usuarioLogado = usuarioLogadoRaw ? JSON.parse(usuarioLogadoRaw) : null;
+        showAdmin = !!usuarioLogado && isAdminEmail(usuarioLogado.email);
+    } catch (e) {
+        showAdmin = false;
+    }
+
     const toggleSearch = () => setSearchOpen(!searchOpen);
     const handleSearchChange = (e) => setSearchValue(e.target.value);
     const handleSearchSubmit = (e) => {
@@ -43,7 +54,7 @@ const Header = () => {
             <div className="header-content">
                 <Link to="/" style={{ textDecoration: 'none' }}>
                     <div className="logo">
-                        {import.meta.env.VITE_APP_NAME || 'LOSSANTOS'}
+                        {(import.meta.env.VITE_APP_NAME || 'LOSSANTOS').toUpperCase()}
                     </div>
                 </Link>
 
@@ -53,6 +64,7 @@ const Header = () => {
                     <Link to="/smartwatch">Smartwatch</Link>
                     <Link to="/acessorios">Acessórios</Link>
                     <Link to="/sobrenos">Sobre nós</Link>
+                    {showAdmin && <Link to="/admin/products">Admin</Link>}
                 </nav>
 
                 <div className="header-icons">

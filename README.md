@@ -2,55 +2,116 @@
 
 Projeto de e-commerce de smartwatches desenvolvido com React + Vite.
 
-## Variáveis de Ambiente
+## 🚀 Tecnologias
 
-O projeto usa variáveis de ambiente para configuração da API e outras configurações:
+- **React 19** - Biblioteca para interfaces
+- **Vite** - Build tool e dev server
+- **React Router DOM** - Roteamento
+- **Axios** - Cliente HTTP
+- **React Hot Toast** - Notificações
 
-### Variáveis Configuradas:
-- `VITE_API_URL` - URL da API (ex: `https://site-smartwatch-pi.vercel.app/api`)
-- `VITE_APP_NAME` - Nome da aplicação (ex: `Smartwatch Store`)
-- `USERS_DATA` - Dados dos usuários (JSON string)
-- `PRODUCTS_DATA` - Dados dos produtos (JSON string)
+## 📁 Estrutura do Projeto
 
-### Como usar no código:
+```
+src/
+├── components/     # Componentes reutilizáveis
+├── pages/         # Páginas da aplicação
+├── styles/        # Arquivos CSS
+└── main.jsx       # Ponto de entrada
+```
+
+## ⚙️ Variáveis de Ambiente
+
+O projeto usa variáveis de ambiente para configuração:
+
+### Variáveis Disponíveis:
+- `VITE_API_URL` - URL da API externa
+- `VITE_APP_NAME` - Nome da aplicação
+- `VITE_ADMIN_EMAIL` - Email do administrador
+
+### Exemplo de uso:
 ```javascript
 // Acessar variáveis de ambiente
-const apiUrl = import.meta.env.VITE_API_URL
-const appName = import.meta.env.VITE_APP_NAME
-
-// Exemplo de uso em componentes
-<div className="logo">
-  {import.meta.env.VITE_APP_NAME || 'LOSSANTOS'}
-</div>
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+const appName = import.meta.env.VITE_APP_NAME || 'LOSSANTOS'
 
 // Exemplo de chamada para API
-const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
+const response = await axios.get(`${apiUrl}/products`)
 ```
 
-## Deploy no Vercel
+## 🛠️ Desenvolvimento
 
-### 1. Configure as variáveis de ambiente no Vercel Dashboard:
-
-```
-NODE_ENV=production
-VITE_API_URL=https://site-smartwatch-pi.vercel.app/api
-USERS_DATA=[{"id":"1","firstName":"Admin","lastName":"Lossantos","companyName":"Lossantos Corp","email":"admin@lossantos.com","password":"adminpassword123"},...]
-PRODUCTS_DATA=[{"id":"1","title":"Watch 10 ultra - 49mm","price":559,"category":"Smartwatch",...},...]
-```
-
-### 2. API Endpoints disponíveis:
-- `GET /api/users` - Lista todos os usuários
-- `POST /api/users` - Cria um novo usuário
-- `GET /api/products` - Lista todos os produtos
-- `POST /api/products` - Cria um novo produto
-
-### 3. Scripts disponíveis:
+### Instalação
 ```bash
-npm run dev          # Servidor de desenvolvimento
+npm install
+```
+
+### Scripts Disponíveis
+```bash
+npm run dev          # Servidor de desenvolvimento (localhost:5173)
 npm run build        # Build para produção
 npm run preview      # Preview do build
-npm run extract-env  # Extrai dados do db.json para variáveis de ambiente
+npm run lint         # Verificar código com ESLint
 ```
+
+### Configuração Local
+Crie um arquivo `.env.local`:
+```
+VITE_API_URL=http://localhost:3001
+VITE_APP_NAME=Smartwatch Store
+VITE_ADMIN_EMAIL=admin@lossantos.com
+```
+
+### React DevTools
+Para uma melhor experiência de desenvolvimento, instale o React DevTools: <mcreference link="https://react.dev/link/react-devtools" index="0">0</mcreference>
+
+**Opção 1: Extensão do Navegador (Recomendado)**
+- [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi)
+- [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/)
+- [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil)
+
+**Opção 2: Standalone (já instalado)**
+```bash
+react-devtools
+```
+
+## 🌐 Deploy
+
+### Vercel (Recomendado)
+1. Conecte seu repositório no [Vercel](https://vercel.com)
+2. Configure as variáveis de ambiente no dashboard
+3. Deploy automático a cada push
+
+### Variáveis de Ambiente para Produção:
+```
+VITE_API_URL=https://sua-api-backend.com
+VITE_APP_NAME=Smartwatch Store
+VITE_ADMIN_EMAIL=admin@lossantos.com
+```
+
+## 📱 Funcionalidades
+
+- ✅ Catálogo de produtos
+- ✅ Sistema de login/cadastro
+- ✅ Painel administrativo
+- ✅ Gerenciamento de usuários
+- ✅ Gerenciamento de produtos
+- ✅ Interface responsiva
+- ✅ Notificações toast
+
+## 🔧 Configuração da API
+
+O projeto está configurado para consumir uma API REST externa. Certifique-se de que sua API tenha os seguintes endpoints:
+
+- `GET /users` - Lista usuários
+- `POST /users` - Criar usuário
+- `GET /products` - Lista produtos
+- `POST /products` - Criar produto
+- `GET /accessories` - Lista acessórios
+
+## 📄 Licença
+
+Este projeto é privado e destinado apenas para fins educacionais.
 
 ## Desenvolvimento
 

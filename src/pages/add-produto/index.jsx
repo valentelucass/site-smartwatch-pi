@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast'; // Adicionei a importação do toast
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
+import { isAdminEmail } from '../../utils/config';
 import './index.css';
 
 // Componentes de Ícone (mantidos como estão)
@@ -13,26 +14,28 @@ const CloseIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" heigh
 const AddProduto = () => {
     // CORREÇÃO: Unificamos a chamada do useNavigate
     const navigate = useNavigate();
+    const location = useLocation();
+    const isAdminRoute = location.pathname.startsWith('/admin');
+    const isAdminAccessories = isAdminRoute && location.pathname.includes('/admin/accessories');
 
     // ================== LÓGICA DE AUTORIZAÇÃO CORRIGIDA ==================
     useEffect(() => {
-        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
-        const adminEmail = 'teste@teste.com';
-
-        // Redireciona se:
-        // 1. Ninguém estiver logado (usuarioLogado é null)
-        // 2. Alguém estiver logado, mas o email NÃO FOR o do admin
-        if (!usuarioLogado || usuarioLogado.email !== adminEmail) {
-            toast.error("Acesso negado. Área restrita para administradores.");
-            navigate('/'); // Envia para a página inicial para uma melhor experiência
+        if (isAdminRoute) {
+            // Admin layout já faz o gate; não disparar toasts/redirecionar aqui.
+            return;
         }
-    }, [navigate]); // Executa este efeito apenas uma vez quando o componente montar
+        const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
+        if (!usuarioLogado || !isAdminEmail(usuarioLogado.email)) {
+            toast.error("Acesso negado. Área restrita para administradores.");
+            navigate('/');
+        }
+    }, [navigate, isAdminRoute]);
     // =======================================================================
 
     // O restante do seu estado e lógica permanecem os mesmos
     const [title, setTitle] = useState('');
     const [price, setPrice] = useState('');
-    const [category, setCategory] = useState('Smartwatch');
+    const [category, setCategory] = useState(isAdminAccessories ? 'Pulseira' : 'Smartwatch');
     const [description, setDescription] = useState('');
     const [sku, setSku] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -104,24 +107,30 @@ const AddProduto = () => {
         };
 
         try {
-            const response = await axios.post('http://localhost:3001/products', newProduct);
+            const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+            const endpoint = isAdminAccessories ? 'accessories' : 'products';
+            const response = await axios.post(`${base}/${endpoint}`, newProduct);
             if (response.status === 201) {
-                toast.success('Produto adicionado com sucesso!');
-                navigate('/smartwatch');
+                if (!isAdminRoute) toast.success('Produto adicionado com sucesso!');
+                if (isAdminRoute) {
+                    navigate(isAdminAccessories ? '/admin/accessories' : '/admin/products');
+                } else {
+                    navigate('/smartwatch');
+                }
             } else {
-                toast.error('Erro ao adicionar o produto.');
+                if (!isAdminRoute) toast.error('Erro ao adicionar o produto.');
             }
         } catch (error) {
             console.error("Erro ao conectar com o servidor:", error);
-            toast.error("Não foi possível conectar ao servidor.");
+            if (!isAdminRoute) toast.error("Não foi possível conectar ao servidor.");
         }
     };
 
     // O JSX do retorno é mantido como está
     return (
-        <div className="add-product-page">
-            <Header />
-            <main className="add-product-container">
+        <div className={isAdminRoute ? undefined : "add-product-page"}>
+            {!isAdminRoute && <Header />}
+            <main className={isAdminRoute ? undefined : "add-product-container"}>
                 <h1>Adicionar produto</h1>
                 <form className="add-product-form" onSubmit={handleSubmit}>
                     {/* ... SEU FORMULÁRIO COMPLETO AQUI ... */}
@@ -240,7 +249,7 @@ const AddProduto = () => {
                     </div>
                 </form>
             </main>
-            <Footer />
+            {!isAdminRoute && <Footer />}
         </div>
     );
 };

@@ -17,11 +17,16 @@ import CadastroPage from './pages/cadastro/index.jsx'
 import LoginPage from './pages/login/index.jsx'
 import AddProduto from './pages/add-produto/index.jsx'
 import RastreioPage from './pages/rastreio/index.jsx'
+import AdminLayout from './pages/admin/layout.jsx'
+import AdminProductsPage from './pages/admin/products/index.jsx'
+import AdminAccessoriesPage from './pages/admin/accessories/index.jsx'
+import AdminEditProductPage from './pages/admin/products/edit.jsx'
+import AdminEditAccessoryPage from './pages/admin/accessories/edit.jsx'
+import AdminUsersPage from './pages/admin/users/index.jsx'
+import AdminEditUserPage from './pages/admin/users/edit.jsx'
+import AdminOrdersPage from './pages/admin/orders/index.jsx'
 
-// Exemplo de uso das variáveis de ambiente
-console.log('API URL:', import.meta.env.VITE_API_URL)
-console.log('App Name:', import.meta.env.VITE_APP_NAME)
-console.log('Environment:', import.meta.env.MODE)
+// Variáveis de ambiente configuradas em .env.local
 
 
 
@@ -41,6 +46,17 @@ createRoot(document.getElementById('root')).render(
         <Route path="/login" element={<LoginPage />} />
         <Route path="/add-produto" element={<AddProduto />} />
         <Route path="/rastreio" element={<RastreioPage />} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route path="products" element={<AdminProductsPage />} />
+          <Route path="products/new" element={<AddProduto />} />
+          <Route path="products/:id/edit" element={<AdminEditProductPage />} />
+          <Route path="accessories" element={<AdminAccessoriesPage />} />
+          <Route path="accessories/new" element={<AddProduto />} />
+          <Route path="accessories/:id/edit" element={<AdminEditAccessoryPage />} />
+          <Route path="users" element={<AdminUsersPage />} />
+          <Route path="users/:id/edit" element={<AdminEditUserPage />} />
+          <Route path="orders" element={<AdminOrdersPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </StrictMode>,

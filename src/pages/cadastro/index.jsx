@@ -30,7 +30,8 @@ const CadastroPage = () => {
         };
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+            const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+            const response = await fetch(`${base}/users`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

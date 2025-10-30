@@ -1,46 +1,76 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
 import './index.css';
 
-const acessoriosProducts = [
-    { id: 1, name: 'Pulseira milenium - dourado', price: 'R$119,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+1' },
-    { id: 2, name: 'Pulseira londres - roxa', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+2' },
-    { id: 3, name: 'Pulseira londres - azul', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+3' },
-    { id: 4, name: 'Pulseira londres - verde', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+4' },
-    { id: 5, name: 'Pulseira milenium - azul', price: 'R$119,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+5' },
-    { id: 6, name: 'Pulseira londres - preta', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+6' },
-    { id: 7, name: 'Pulseira londres - marrom', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+7' },
-    { id: 8, name: 'Pulseira orion - prata', price: 'R$109,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+8' },
-    { id: 9, name: 'Pulseira londres - rose', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+9' },
-    { id: 10, name: 'Pulseira gomo - dourado e prata', price: 'R$129,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+10' },
-    { id: 11, name: 'Pulseira londres - bege', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+11' },
-    { id: 12, name: 'Pulseira londres - rosa', price: 'R$89,00', imgSrc: 'https://via.placeholder.com/250/FFFFFF/000000?text=Acessorio+12' },
-];
-
 const AcessoriosPage = () => {
+    const [items, setItems] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        axios.get(`${base}/accessories`)
+            .then((response) => {
+                const data = Array.isArray(response.data) ? response.data : [];
+                setItems(data);
+            })
+            .catch((err) => {
+                setError(err.message);
+                console.warn('Erro ao carregar acessórios:', err.message);
+                setItems([]);
+            })
+            .finally(() => setLoading(false));
+    }, []);
+
     return (
         <div className="acessorios-page">
             <Header />
             <main className="acessorios-container">
+                <h1>Acessórios</h1>
+
+                {loading && (
+                    <div className="loading-container">
+                        <p>Carregando acessórios...</p>
+                    </div>
+                )}
+
+                {error && !loading && (
+                    <div className="error-container">
+                        <p>⚠️ Não foi possível conectar ao servidor. Mostrando página sem itens.</p>
+                    </div>
+                )}
+
                 <div className="products-grid">
-                    {acessoriosProducts.map(product => (
-                        <div key={product.id} className="product-card">
-                            <div className="product-image-container">
-                                <img src={product.imgSrc} alt={product.name} />
+                    {!loading && items.length > 0 ? (
+                        items.map((item) => (
+                            <div key={item.id} className="product-card">
+                                <div className="product-image-container">
+                                    <img src={(item.images && item.images[0]) || 'https://via.placeholder.com/250'} alt={item.title || item.name} />
+                                </div>
+                                <h3>{item.title || item.name}</h3>
+                                <p className="price">
+                                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.price)}
+                                </p>
                             </div>
-                            <h3>{product.name}</h3>
-                            <p className="price">{product.price}</p>
+                        ))
+                    ) : !loading && (
+                        <div className="no-products">
+                            <p>Nenhum acessório disponível no momento.</p>
+                            <p>Os itens aparecerão automaticamente quando forem adicionados.</p>
                         </div>
-                    ))}
+                    )}
                 </div>
 
-                <nav className="pagination">
-                    <button className="page-btn active">1</button>
-                    <button className="page-btn">2</button>
-                    <button className="page-btn">3</button>
-                    <button className="page-btn next">Next</button>
-                </nav>
+                {!loading && items.length > 0 && (
+                    <nav className="pagination">
+                        <button className="page-btn active">1</button>
+                        <button className="page-btn">2</button>
+                        <button className="page-btn">3</button>
+                        <button className="page-btn next">Next</button>
+                    </nav>
+                )}
             </main>
             <Footer />
         </div>

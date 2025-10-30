@@ -12,7 +12,8 @@ const SmartWatchPage = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/products');
+                const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+                const response = await axios.get(`${base}/products`);
                 setProducts(response.data);
             } catch (err) {
                 setError(err.message);
