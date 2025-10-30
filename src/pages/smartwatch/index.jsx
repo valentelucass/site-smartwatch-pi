@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/config';
 import { toast } from 'react-hot-toast';
 import { addItem } from '../../utils/cart.js';
 import Header from '../../components/header/index.jsx';
@@ -16,7 +17,7 @@ const SmartWatchPage = () => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+                const base = API_BASE_URL;
                 const response = await axios.get(`${base}/products`);
                 setProducts(response.data);
             } catch (err) {

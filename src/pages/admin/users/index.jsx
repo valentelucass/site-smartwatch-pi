@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API_BASE_URL } from '../../../utils/config'
 
 const AdminUsersPage = () => {
   const [users, setUsers] = useState([])
@@ -7,7 +8,7 @@ const AdminUsersPage = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     const url = `${base}/users`
     const fetchUsers = async () => {
       try {

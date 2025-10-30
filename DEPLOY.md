@@ -26,17 +26,21 @@ No dashboard do Vercel, adicione estas variáveis em **Settings > Environment Va
 3. Copie o array de `products` completo
 4. Cole nas respectivas variáveis no Vercel
 
-### Endpoints da API disponíveis:
+### Backend no Render (recomendado)
 
-- `GET /api/users` - Lista todos os usuários
-- `POST /api/users` - Cria um novo usuário
-- `GET /api/products` - Lista todos os produtos
-- `POST /api/products` - Cria um novo produto
+Se o backend estiver hospedado no Render, configure no Vercel a variável:
 
-### Frontend:
-- `VITE_API_URL=https://seu-projeto.vercel.app/api`
+- `VITE_API_URL=https://<seu-servico>.onrender.com`
 
-## Deploy:
-1. Commit e push os arquivos da API
-2. Configure as variáveis no dashboard do Vercel
-3. Deploy automático
+Substitua `<seu-servico>` pela URL pública do seu serviço no Render (ou domínio customizado, se houver). A aplicação usa essa variável em produção; em desenvolvimento (`npm run dev`) o fallback é `http://localhost:3001`.
+
+Observações sobre Render (plano gratuito):
+- Cold start pode levar 20–60s após inatividade. A primeira chamada pode demorar.
+- Garanta que o serviço esteja como Web Service e acessível publicamente.
+- Habilite CORS se usar proxies; o `json-server` já responde com CORS padrão.
+
+## Deploy
+1. Faça commit/push do frontend para Vercel.
+2. No Vercel: Settings > Environment Variables, configure `VITE_API_URL` com a URL do Render.
+3. No Render: confirme que o serviço está rodando e acessível.
+4. Dispare o deploy no Vercel ou aguarde o auto deploy.

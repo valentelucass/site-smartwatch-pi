@@ -39,6 +39,14 @@
       "companyName": "luquinhas",
       "email": "teste2@teste.com",
       "password": "123456"
+    },
+    {
+      "id": "8306",
+      "firstName": "asdasd",
+      "lastName": "asdasd",
+      "companyName": "luquinhas",
+      "email": "teste4@teste.com",
+      "password": "123456"
     }
   ],
   "products": [

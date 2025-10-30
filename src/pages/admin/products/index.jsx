@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API_BASE_URL } from '../../../utils/config'
 
 const AdminProductsPage = () => {
   const [products, setProducts] = useState([])
@@ -8,7 +9,7 @@ const AdminProductsPage = () => {
   const [deletingId, setDeletingId] = useState(null)
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     const url = `${base}/products`
     const fetchProducts = async () => {
       try {
@@ -42,7 +43,7 @@ const AdminProductsPage = () => {
     if (!confirm) return
     try {
       setDeletingId(id)
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const base = API_BASE_URL
       const res = await fetch(`${base}/products/${id}`, { method: 'DELETE' })
       if (!res.ok) throw new Error('Falha ao excluir o produto')
       setProducts(prev => prev.filter(p => p.id !== id))

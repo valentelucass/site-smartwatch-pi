@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import '../../add-produto/index.css'
+import { API_BASE_URL } from '../../../utils/config'
 
 // Ícones para o uploader de imagens (iguais aos da página de adicionar)
 const UploadIcon = () => (
@@ -24,7 +25,7 @@ const AdminEditProductPage = () => {
   const [description, setDescription] = useState('')
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     fetch(`${base}/products/${id}`)
       .then(res => res.json())
       .then(data => {
@@ -65,7 +66,7 @@ const AdminEditProductPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const base = API_BASE_URL
       const payload = {
         title,
         name: title,

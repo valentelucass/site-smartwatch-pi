@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../../utils/config';
 import { toast } from 'react-hot-toast';
 import { addItem } from '../../utils/cart.js';
 import Header from '../../components/header/index.jsx';
@@ -14,7 +15,7 @@ const AcessoriosPage = () => {
     const itemsPerPage = 16;
 
     useEffect(() => {
-        const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        const base = API_BASE_URL;
         axios.get(`${base}/accessories`)
             .then((response) => {
                 const data = Array.isArray(response.data) ? response.data : [];

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import '../../add-produto/index.css'
+import { API_BASE_URL } from '../../../utils/config'
 
 const AdminEditUserPage = () => {
   const { id } = useParams()
@@ -14,7 +15,7 @@ const AdminEditUserPage = () => {
   const [password, setPassword] = useState('')
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     fetch(`${base}/users/${id}`)
       .then(res => res.json())
       .then(data => {
@@ -31,7 +32,7 @@ const AdminEditUserPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const base = API_BASE_URL
       const payload = {
         firstName,
         lastName,

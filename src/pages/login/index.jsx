@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
-import { isAdminEmail } from '../../utils/config';
+import { isAdminEmail, API_BASE_URL } from '../../utils/config';
 import './index.css';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -25,7 +25,7 @@ const LoginPage = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+            const base = API_BASE_URL;
             const response = await axios.get(`${base}/users?email=${email}&password=${password}`);
             if (response.data.length > 0) {
                 const user = response.data[0];

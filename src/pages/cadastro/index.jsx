@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
 import './index.css';
+import { API_BASE_URL } from '../../utils/config';
 
 const CadastroPage = () => {
     const [firstName, setFirstName] = useState('');
@@ -30,7 +31,7 @@ const CadastroPage = () => {
         };
 
         try {
-            const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+            const base = API_BASE_URL;
             const response = await fetch(`${base}/users`, {
                 method: 'POST',
                 headers: {

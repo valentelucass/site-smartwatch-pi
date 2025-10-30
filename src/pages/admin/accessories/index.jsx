@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { API_BASE_URL } from '../../../utils/config'
 
 const AdminAccessoriesPage = () => {
   const [items, setItems] = useState([])
@@ -8,7 +9,7 @@ const AdminAccessoriesPage = () => {
   const [deletingId, setDeletingId] = useState(null)
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     const url = `${base}/accessories`
     const fetchItems = async () => {
       try {
@@ -42,7 +43,7 @@ const AdminAccessoriesPage = () => {
     if (!confirm) return
     try {
       setDeletingId(id)
-      const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+      const base = API_BASE_URL
       const res = await fetch(`${base}/accessories/${id}`, { method: 'DELETE' })
       if (!res.ok) throw new Error('Falha ao excluir o acessório')
       setItems(prev => prev.filter(p => p.id !== id))

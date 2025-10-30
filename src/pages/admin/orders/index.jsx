@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { API_BASE_URL } from '../../../utils/config'
 
 const AdminOrdersPage = () => {
   const [orders, setOrders] = useState([])
@@ -6,7 +7,7 @@ const AdminOrdersPage = () => {
   const [error, setError] = useState(null)
 
   useEffect(() => {
-    const base = import.meta.env.VITE_API_URL || 'http://localhost:3001'
+    const base = API_BASE_URL
     const url = `${base}/orders`
     const fetchOrders = async () => {
       try {

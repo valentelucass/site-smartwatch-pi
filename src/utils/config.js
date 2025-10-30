@@ -49,3 +49,13 @@ export const CONFIG = {
   SESSION_TIMEOUT: AUTH_CONFIG.SESSION_TIMEOUT,
   API_TIMEOUT: AUTH_CONFIG.API_TIMEOUT,
 }
+
+/**
+ * Base URL da API
+ * - Em produção (Vercel), use a env `VITE_API_URL` apontando para o backend no Render
+ * - Em desenvolvimento, faz fallback para `http://localhost:3001`
+ */
+export const API_BASE_URL = (
+  (import.meta.env && import.meta.env.VITE_API_URL && String(import.meta.env.VITE_API_URL).trim()) ||
+  (import.meta.env && import.meta.env.DEV ? 'http://localhost:3001' : '')
+)

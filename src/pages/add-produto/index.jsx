@@ -4,7 +4,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast'; // Adicionei a importação do toast
 import Header from '../../components/header/index.jsx';
 import Footer from '../../components/footer/index.jsx';
-import { isAdminEmail } from '../../utils/config';
+import { isAdminEmail, API_BASE_URL } from '../../utils/config';
 import { getRandomPlaceholderImage } from '../../utils/placeholders.js';
 import './index.css';
 
@@ -109,7 +109,7 @@ const AddProduto = () => {
         };
 
         try {
-            const base = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+            const base = API_BASE_URL;
             const endpoint = isAdminAccessories ? 'accessories' : 'products';
             const response = await axios.post(`${base}/${endpoint}`, newProduct);
             if (response.status === 201) {
