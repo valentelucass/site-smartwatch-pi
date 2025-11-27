@@ -1,3 +1,18 @@
+<!-- PORTFOLIO-FEATURED
+title: Projeto Integrador – Smartwatch Store
+description: E-commerce desenvolvido como Projeto Integrador, com foco em lógica, rotas, consumo de API e estruturação da aplicação. Construído em React e integrado a um back-end de exemplo para listagem e gerenciamento de produtos.
+technologies: React, Vite, JavaScript, React Router, Axios
+demo: https://site-smartwatch-pi.vercel.app/
+highlight: true
+image: public/foto.png
+-->
+
+
+<p align="center"> 
+  <img src="public/foto.png" alt="Capa do projeto" width="1200"> 
+</p>
+
+
 # Smartwatch Store
 
 Projeto de e-commerce de smartwatches desenvolvido com React + Vite.
